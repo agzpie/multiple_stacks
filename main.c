@@ -52,13 +52,13 @@ int pop_last(struck *head_node) {
     return ret;
 }
 
-void add_stack(struck *stos){
+void add_stack(struck *stos) {
     printf("Podaj liczbe: ");
     char liczba[11];
     scanf("%s", liczba);
-    int i=0;
-    while (liczba[i]!=NULL) {
-        int j=liczba[i]-48;
+    int i = 0;
+    while (liczba[i] != NULL) {
+        int j = liczba[i] - 48;
         push_last(stos, j);
         i++;
     }
@@ -75,33 +75,60 @@ int main() {
     stack1->next = NULL;
 
     add_stack(stack1);
-    printf("otkgogno");
     printall(stack1);
+    printf("it worked\n");
 
-   /* typedef struct nd {
-        struct struck *node;
-        int data;
-    }node;*/
-/*
-    int cyfra;
-    printf("Podaj cyfry oddzielone enterem: ");
-    do {
-        scanf("%d", &cyfra);
-        if (cyfra < 10) {
-            push_last1(stack1, cyfra);
+    // STACK 2
+    struck *stack2 = NULL;
+    stack2 = malloc(sizeof(struck));
+    // malloc test
+    if (stack2 == NULL)
+        return 1;
+    stack2->next = NULL;
+
+    add_stack(stack2);
+    printall(stack2);
+    printf("it worked again\n");
+
+    //STACK 3
+    struck *stack3 = NULL;
+    stack3 = malloc(sizeof(struck));
+    // malloc test
+    if (stack3 == NULL)
+        return 1;
+    stack3->next = NULL;
+
+    add_stack(stack3);
+    printall(stack3);
+    printf("good job\n");
+
+    //STACK 4: THE RESULT
+
+    struck *result = NULL;
+    result = malloc(sizeof(struck));
+    // malloc test
+    if (result == NULL)
+        return 1;
+    result->next = NULL;
+
+    // TODO
+
+    int sum=0;
+    int extra=0;
+    //do {
+        sum = pop_last(stack1) + pop_last(stack2) + pop_last(stack3);
+        if (sum > 9) {
+            extra = sum%10;
+            sum = sum/10;
         }
-    } while (cyfra < 10);
+        push_last(result, sum);
 
-    printall(stack1);
-*/
-    //  STACK 2
 
-    //struck *root = malloc(sizeof(struck));
-    //push_last(root, 1337);
-    //push_last(root, 999);
 
-    //printall(root);
-    //exit(0);
+    //}while();
+    printall(result);
+
+
 
 
     return 0;
