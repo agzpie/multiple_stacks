@@ -25,24 +25,6 @@ void push_last(struck *head_node, int value) {
     }
 }
 
-void push_last1(struck *stack1, int value) {
-    if (stack1->next == NULL) {
-        // First node with data
-        stack1->next = malloc(sizeof(struck));
-        stack1->next->value = value;
-        stack1->next->next = NULL;
-    } else {
-        // Second or later node with data
-        struck *current = stack1->next;
-        while (current->next != NULL)
-            current = current->next;
-
-        current->next = malloc(sizeof(struck));
-        current->next->value = value;
-        current->next->next = NULL;
-    }
-}
-
 void printall(struck *head_node) {
     struck *current = head_node->next;
     while (current != NULL) {
@@ -70,26 +52,37 @@ int pop_last(struck *head_node) {
     return ret;
 }
 
+void add_stack(struck *stos){
+    printf("Podaj liczbe: ");
+    char liczba[11];
+    scanf("%s", liczba);
+    int i=0;
+    while (liczba[i]!=NULL) {
+        int j=liczba[i]-48;
+        push_last(stos, j);
+        i++;
+    }
+}
 
 int main() {
-    struck *head_node = NULL;
-    head_node = malloc(sizeof(struck));
-
-    // malloc test
-    if (head_node == NULL)
-        return 1;
-    head_node->next = NULL;
-
     //  STACK 1
 
     struck *stack1 = NULL;
     stack1 = malloc(sizeof(struck));
+    // malloc test
+    if (stack1 == NULL)
+        return 1;
+    stack1->next = NULL;
+
+    add_stack(stack1);
+    printf("otkgogno");
+    printall(stack1);
 
    /* typedef struct nd {
         struct struck *node;
         int data;
     }node;*/
-
+/*
     int cyfra;
     printf("Podaj cyfry oddzielone enterem: ");
     do {
@@ -100,7 +93,7 @@ int main() {
     } while (cyfra < 10);
 
     printall(stack1);
-
+*/
     //  STACK 2
 
     //struck *root = malloc(sizeof(struck));
@@ -109,20 +102,6 @@ int main() {
 
     //printall(root);
     //exit(0);
-
-    struck *stack2 = NULL;
-    stack2 = malloc(sizeof(struck));
-
-    //struck *stack2 = malloc(sizeof(struck));
-    printf("\nPodaj cyfry oddzielone enterem: ");
-    do {
-        scanf("%d", &cyfra);
-        if (cyfra < 10) {
-            push_last(stack2, cyfra);
-        }
-    } while (cyfra < 10);
-
-    printall(stack2);
 
 
     return 0;
