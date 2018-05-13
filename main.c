@@ -75,7 +75,6 @@ int main() {
     stack1->next = NULL;
 
     add_stack(stack1);
-    printall(stack1);
     printf("it worked\n");
 
     // STACK 2
@@ -87,7 +86,6 @@ int main() {
     stack2->next = NULL;
 
     add_stack(stack2);
-    printall(stack2);
     printf("it worked again\n");
 
     //STACK 3
@@ -99,8 +97,7 @@ int main() {
     stack3->next = NULL;
 
     add_stack(stack3);
-    printall(stack3);
-    printf("good job\n");
+    printf("good job\n\n");
 
     //STACK 4: THE RESULT
 
@@ -113,19 +110,21 @@ int main() {
 
     // TODO
 
-    int sum=0;
-    int extra=0;
-    //do {
-        sum = pop_last(stack1) + pop_last(stack2) + pop_last(stack3);
-        if (sum > 9) {
-            extra = sum%10;
-            sum = sum/10;
+    int sum = 0;
+    int extra = 0;
+    do {
+    //while((pop_last(stack1)!=-1 && pop_last(stack2)!=-1) && (pop_last(stack3)!=-1)) {
+        sum = sum + pop_last(stack1) + pop_last(stack2) + pop_last(stack3);
+        if (sum > 9) { //sum = 12
+            extra = sum/10; // = 1
+            sum = sum%10; // = 2
         }
         push_last(result, sum);
+        sum = extra;
+        extra = 0;
 
-
-
-    //}while();
+    } while((pop_last(stack1)!=-1 && pop_last(stack2)!=-1) && (pop_last(stack3)!=-1)) ;
+    printf("Wynik:\t");
     printall(result);
 
 
