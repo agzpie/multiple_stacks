@@ -4,7 +4,7 @@
 typedef struct node {
     int value;
     struct node *next;
-}struck;
+} struck;
 
 
 void push_last(struck *head_node, int value) {
@@ -92,7 +92,6 @@ int main() {
     stack1->next = NULL;
 
     add_stack(stack1);
-    printf("it worked\n");
 
     // STACK 2
     struck *stack2 = NULL;
@@ -103,7 +102,6 @@ int main() {
     stack2->next = NULL;
 
     add_stack(stack2);
-    printf("it worked again\n");
 
     //STACK 3
     struck *stack3 = NULL;
@@ -114,7 +112,6 @@ int main() {
     stack3->next = NULL;
 
     add_stack(stack3);
-    printf("good job\n\n");
 
     //STACK 4: THE RESULT
 
@@ -125,7 +122,7 @@ int main() {
         return 1;
     result->next = NULL;
 
-    //STACK 4: INVERTED RESULT
+    //STACK 5: INVERTED RESULT
 
     struck *invresult = NULL;
     invresult = malloc(sizeof(struck));
@@ -139,11 +136,12 @@ int main() {
     int sum = 0;
     int extra = 0;
     int s1, s2, s3;
-
-    while((peek_last(stack1)!=-1 && peek_last(stack2)!=-1) && (peek_last(stack3)!=-1)) {
+    int empty_stacks_check=0;
+    do {
         s1 = peek_last(stack1);
         s2 = peek_last(stack2);
         s3 = peek_last(stack3);
+        empty_stacks_check = s1+s2+s3;
 
         if (s1 == -1)
             s1 = 0;
@@ -152,37 +150,36 @@ int main() {
         if (s3 == -1)
             s3 = 0;
 
-        sum = sum + s1 + s2 + s3;
-        if (sum > 9) {
-            extra = sum/10;
-            sum = sum%10;
-        }
-        push_last(result, sum);
-        sum = extra;
-        extra = 0;
-        pop_last(stack1);
-        pop_last(stack2);
-        pop_last(stack3);
+        if (empty_stacks_check != -3) {
+            pop_last(stack1);
+            pop_last(stack2);
+            pop_last(stack3);
 
-    };
-
-    while (sum > 0) {
-        if (sum>9) {
-            extra = sum/10;
-            sum = sum%10;
+            sum = sum + s1 + s2 + s3;
+            if (sum > 9) {
+                extra = sum / 10;
+                sum = sum % 10;
+            }
+            push_last(result, sum);
+            sum = extra;
+            extra = 0;
         }
-        push_last(result, sum);
-        sum = extra;
-        extra = 0;
-    };
-    printf("result:\t");
-    printall(result);
+
+        if (empty_stacks_check == -3 && sum != 0)
+        {
+            push_last(result, sum);
+        }
+
+    } while (empty_stacks_check != -3);
+
+    //printf("result:\t");
+    //printall(result);
     int val;
-   // struck *current = result;
+    // struck *current = result;
     while (peek_last(result) != -1) {
         val = pop_last(result);
         push_last(invresult, val);
-        result = result->next;
+      //  result = result->next;
     };
 
     printf("\nWynik:\t");
