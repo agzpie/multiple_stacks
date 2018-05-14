@@ -52,6 +52,23 @@ int pop_last(struck *head_node) {
     return ret;
 }
 
+int peek_last(struck *head_node) {
+    if (head_node->next == NULL) {
+        return -1;
+    }
+
+    struck *current = head_node->next;
+    struck *prev_current = head_node;
+    while (current->next != NULL) {
+        prev_current = current;
+        current = current->next;
+    }
+
+    int ret = current->value;
+
+    return ret;
+}
+
 void add_stack(struck *stos) {
     printf("Podaj liczbe: ");
     char liczba[11];
@@ -108,27 +125,68 @@ int main() {
         return 1;
     result->next = NULL;
 
+    //STACK 4: INVERTED RESULT
+
+    struck *invresult = NULL;
+    invresult = malloc(sizeof(struck));
+    // malloc test
+    if (invresult == NULL)
+        return 1;
+    invresult->next = NULL;
+
     // TODO
 
     int sum = 0;
     int extra = 0;
-    do {
-    //while((pop_last(stack1)!=-1 && pop_last(stack2)!=-1) && (pop_last(stack3)!=-1)) {
-        sum = sum + pop_last(stack1) + pop_last(stack2) + pop_last(stack3);
-        if (sum > 9) { //sum = 12
-            extra = sum/10; // = 1
-            sum = sum%10; // = 2
+    int s1, s2, s3;
+
+    while((peek_last(stack1)!=-1 && peek_last(stack2)!=-1) && (peek_last(stack3)!=-1)) {
+        s1 = peek_last(stack1);
+        s2 = peek_last(stack2);
+        s3 = peek_last(stack3);
+
+        if (s1 == -1)
+            s1 = 0;
+        if (s2 == -1)
+            s2 = 0;
+        if (s3 == -1)
+            s3 = 0;
+
+        sum = sum + s1 + s2 + s3;
+        if (sum > 9) {
+            extra = sum/10;
+            sum = sum%10;
         }
         push_last(result, sum);
         sum = extra;
         extra = 0;
+        pop_last(stack1);
+        pop_last(stack2);
+        pop_last(stack3);
 
-    } while((pop_last(stack1)!=-1 && pop_last(stack2)!=-1) && (pop_last(stack3)!=-1)) ;
-    printf("Wynik:\t");
+    };
+
+    while (sum > 0) {
+        if (sum>9) {
+            extra = sum/10;
+            sum = sum%10;
+        }
+        push_last(result, sum);
+        sum = extra;
+        extra = 0;
+    };
+    printf("result:\t");
     printall(result);
+    int val;
+   // struck *current = result;
+    while (peek_last(result) != -1) {
+        val = pop_last(result);
+        push_last(invresult, val);
+        result = result->next;
+    };
 
-
-
+    printf("\nWynik:\t");
+    printall(invresult);
 
     return 0;
 }
